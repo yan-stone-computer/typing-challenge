@@ -70,16 +70,16 @@
     .brand svg { width: 30px; height: 30px; color: var(--accent); }
     .best { color: var(--secondary); font-size: 13px; font-variant-numeric: tabular-nums; text-align: right; }
     .best strong { display: block; color: var(--ink); font-size: 15px; }
-    main { padding-top: 48px; padding-bottom: 80px; }
-    .intro { display: flex; justify-content: space-between; align-items: end; gap: 24px; margin-bottom: 32px; }
+    main { padding-top: 32px; padding-bottom: 80px; }
+    .intro { display: flex; justify-content: space-between; align-items: end; gap: 24px; margin-bottom: 24px; }
     h1 { margin: 0; font-size: 48px; line-height: 1.14; font-weight: 850; letter-spacing: 0; }
     .intro p { margin: 8px 0 0; color: var(--secondary); }
-    .identity-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; margin: 0 0 32px; padding: 20px 0; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+    .identity-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; margin: 0 0 24px; padding: 12px 0; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
     .identity-grid div { min-width: 0; }
     .identity-grid dt { color: var(--secondary); font-size: 12px; font-weight: 700; }
     .identity-grid dd { margin: 4px 0 0; font-size: 16px; font-weight: 800; overflow-wrap: anywhere; }
     .round-mark { color: var(--muted); font: 700 13px/1.3 "Bahnschrift", "Arial Narrow", sans-serif; white-space: nowrap; }
-    .controls { display: flex; align-items: end; gap: 24px; padding: 20px 0 24px; border-top: 1px solid var(--border); }
+    .controls { display: flex; align-items: end; gap: 24px; padding: 12px 0 16px; border-top: 1px solid var(--border); }
     .control-group { border: 0; margin: 0; padding: 0; min-width: 0; }
     .control-group legend { padding: 0; margin-bottom: 8px; font-size: 12px; font-weight: 700; color: var(--secondary); }
     .segment { display: flex; padding: 4px; background: var(--overlay); border-radius: 6px; gap: 4px; }
@@ -94,32 +94,36 @@
     .quiet { border: 1px solid var(--border-strong); background: transparent; color: var(--ink); }
     .quiet:hover:not(:disabled) { background: var(--overlay); }
     .quiet[hidden] { display: none; }
-    .session { background: var(--panel); color: var(--panel-text); padding: 28px 32px 32px; border-radius: 8px; }
-    .session-head { display: flex; align-items: start; justify-content: space-between; gap: 16px; margin-bottom: 24px; }
-    .session-head h2 { margin: 0; color: var(--surface); font-size: 20px; line-height: 1.25; }
-    .session-state { margin: 4px 0 0; color: var(--panel-muted); font-size: 13px; }
-    .clock { font: 700 36px/1 "Bahnschrift", "Arial Narrow", system-ui, sans-serif; font-variant-numeric: tabular-nums; color: var(--surface); }
-    .clock small { font-size: 14px; color: var(--panel-muted); margin-left: 4px; }
+    .typing { display: grid; grid-template-columns: minmax(260px, 300px) minmax(0, 1fr); gap: 32px; padding-top: 24px; align-items: start; }
+    .panel { position: sticky; top: 24px; background: var(--panel); color: var(--panel-text); border-radius: 12px; padding: 24px; }
+    .panel-head { display: flex; align-items: start; justify-content: space-between; gap: 12px; margin-bottom: 24px; }
+    .panel-head h2 { margin: 0; color: var(--surface); font-size: 18px; line-height: 1.25; }
+    .panel-state { margin: 4px 0 0; color: var(--panel-muted); font-size: 13px; }
+    .clock { font: 700 32px/1 "Bahnschrift", "Arial Narrow", system-ui, sans-serif; font-variant-numeric: tabular-nums; color: var(--surface); white-space: nowrap; }
+    .clock small { font-size: 13px; color: var(--panel-muted); margin-left: 4px; }
     .progress-head { display: flex; justify-content: space-between; gap: 16px; margin-bottom: 8px; color: var(--panel-text); font-size: 13px; }
     .progress-head strong { color: var(--accent); font-variant-numeric: tabular-nums; }
-    progress { display: block; width: 100%; height: 10px; border: 0; border-radius: 4px; overflow: hidden; background: var(--panel-line); accent-color: var(--accent); }
+    progress { display: block; width: 100%; height: 8px; border: 0; border-radius: 4px; overflow: hidden; background: var(--panel-line); accent-color: var(--accent); }
     progress::-webkit-progress-bar { background: var(--panel-line); }
     progress::-webkit-progress-value { background: var(--accent); }
     progress::-moz-progress-bar { background: var(--accent); }
-    .typing { display: grid; grid-template-columns: 220px minmax(0, 1fr); gap: 32px; padding-top: 32px; }
-    .stats { display: grid; align-content: start; gap: 24px; }
-    .stat { border-bottom: 1px solid var(--border); padding-bottom: 16px; }
-    .stat-label { display: block; color: var(--secondary); font-size: 13px; font-weight: 700; }
-    .stat-value { display: block; font: 750 42px/1.2 "Bahnschrift", "Arial Narrow", system-ui, sans-serif; font-variant-numeric: tabular-nums; }
-    .stat-value small { font-size: 14px; font-weight: 600; color: var(--secondary); margin-left: 4px; }
+    .metrics { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 24px; padding-top: 20px; border-top: 1px solid var(--panel-line); }
+    .metric-label { display: block; color: var(--panel-muted); font-size: 13px; }
+    .metric-value { display: block; margin-top: 4px; color: var(--surface); font: 750 34px/1.15 "Bahnschrift", "Arial Narrow", system-ui, sans-serif; font-variant-numeric: tabular-nums; }
+    .metric-value small { font-size: 13px; font-weight: 600; color: var(--panel-muted); margin-left: 2px; }
     .copy-area { min-width: 0; }
     .copy-head { display: flex; justify-content: space-between; gap: 16px; margin-bottom: 12px; color: var(--secondary); font-size: 13px; font-weight: 700; }
-    .target { min-height: 224px; max-height: 240px; padding: 20px 24px; border-radius: 6px; background: var(--overlay); color: var(--ink); font-size: 21px; line-height: 1.75; overflow: auto; overflow-wrap: anywhere; white-space: pre-wrap; }
+    .target { min-height: 200px; max-height: 216px; padding: 16px 24px 20px; border-radius: 8px; background: var(--overlay); color: var(--ink); font-size: 21px; line-height: 1.75; overflow: auto; overflow-wrap: anywhere; white-space: pre-wrap; }
     .target span.done { color: var(--success); }
     .target span.error { color: var(--danger); background: var(--accent-soft); }
     .target span.next { border-bottom: 2px solid var(--accent); }
     label[for="type-input"] { display: block; color: var(--secondary); font-size: 13px; font-weight: 700; margin: 20px 0 8px; }
-    textarea { display: block; width: 100%; height: 120px; padding: 14px 16px; resize: vertical; border: 1px solid var(--border-strong); border-radius: 6px; background: var(--raised); color: var(--ink); line-height: 1.6; outline: none; }
+    textarea { display: block; width: 100%; height: 120px; padding: 14px 16px; resize: vertical; border: 1px solid var(--border-strong); border-radius: 6px; background: var(--raised); color: var(--ink); line-height: 1.6; outline: none; caret-color: var(--accent); }
+    .target, textarea { scrollbar-width: thin; scrollbar-color: var(--border-strong) transparent; }
+    .target::-webkit-scrollbar, textarea::-webkit-scrollbar { width: 8px; height: 8px; }
+    .target::-webkit-scrollbar-track, textarea::-webkit-scrollbar-track { background: transparent; }
+    .target::-webkit-scrollbar-thumb, textarea::-webkit-scrollbar-thumb { background: var(--border-strong); border-radius: 4px; }
+    .target::-webkit-scrollbar-thumb:hover, textarea::-webkit-scrollbar-thumb:hover { background: var(--secondary); }
     textarea::placeholder { color: var(--muted); opacity: 1; }
     textarea:focus { border-color: var(--secondary); box-shadow: 0 0 0 3px var(--overlay); }
     textarea:disabled { background: var(--overlay); color: var(--muted); }
@@ -169,10 +173,9 @@
       .controls { flex-wrap: wrap; gap: 16px; }
       .control-actions { width: 100%; margin: 0; }
       .control-actions .primary { flex: 1; }
-      .session { padding: 24px 16px; }
       .typing { display: flex; flex-direction: column; gap: 24px; padding-top: 24px; }
-      .stats { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
-      .stat-value { font-size: 34px; }
+      .panel { position: static; padding: 20px; }
+      .metric-value { font-size: 30px; }
       .target { font-size: 18px; padding: 16px; min-height: 224px; }
     }
     @media (max-width: 420px) {
@@ -181,8 +184,8 @@
       .brand { font-size: 16px; gap: 8px; }
       .brand svg { width: 26px; }
       .segment button { padding-inline: 12px; }
-      .clock { font-size: 30px; }
-      .session-head h2 { font-size: 18px; }
+      .clock { font-size: 28px; }
+      .panel-head h2 { font-size: 17px; }
       .identity-fields { grid-template-columns: 1fr; }
       .score-numbers { grid-template-columns: 1fr 1fr; }
       .score-actions > button { width: 100%; }
@@ -231,12 +234,12 @@
       <fieldset class="control-group" id="language-group"><legend>挑战语言</legend><div class="segment"><button type="button" data-language="zh" aria-pressed="true">中文</button><button type="button" data-language="en" aria-pressed="false">English</button></div></fieldset>
       <div class="control-actions"><button class="quiet" id="stop" type="button" hidden>结束挑战</button><button class="primary" id="start" type="button">开始挑战</button></div>
     </div>
-    <section class="session" aria-labelledby="session-title">
-      <div class="session-head"><div><h2 id="session-title">本次表现</h2><p class="session-state" id="session-state">尚未开始</p></div><div class="clock"><span id="timer">00:00</span><small>用时</small></div></div>
-      <div class="progress-head"><span>完成进度</span><strong id="progress-text">0%</strong></div><progress id="progress" max="100" value="0" aria-label="完成进度">0%</progress>
-    </section>
     <section class="typing" aria-label="打字区">
-      <div class="stats"><div class="stat"><span class="stat-label">当前速度</span><span class="stat-value"><span id="speed">0</span><small id="speed-unit">字/分</small></span></div><div class="stat"><span class="stat-label">准确率</span><span class="stat-value"><span id="accuracy">100</span><small>%</small></span></div></div>
+      <section class="panel" aria-labelledby="session-title">
+        <div class="panel-head"><div><h2 id="session-title">本次表现</h2><p class="panel-state" id="session-state">尚未开始</p></div><div class="clock"><span id="timer">00:00</span><small>用时</small></div></div>
+        <div class="progress-head"><span>完成进度</span><strong id="progress-text">0%</strong></div><progress id="progress" max="100" value="0" aria-label="完成进度">0%</progress>
+        <div class="metrics"><div><span class="metric-label">速度</span><span class="metric-value"><span id="speed">0</span><small id="speed-unit">字/分</small></span></div><div><span class="metric-label">准确率</span><span class="metric-value"><span id="accuracy">100</span><small>%</small></span></div></div>
+      </section>
       <div class="copy-area"><div class="copy-head"><span>挑战文本</span><span id="text-length">0 字</span></div><div class="target" id="target" aria-label="挑战文本"></div><label for="type-input">输入区</label><textarea id="type-input" spellcheck="false" autocomplete="off" autocapitalize="off" aria-describedby="input-feedback" placeholder="等待开始…" disabled></textarea><p class="input-feedback" id="input-feedback" role="status">点击“开始挑战”。</p></div>
     </section>
     <section class="history" aria-labelledby="history-title"><h2 id="history-title">最近成绩</h2><ol id="history-list"></ol><p class="history-empty" id="history-empty">还没有完成的挑战。</p></section>

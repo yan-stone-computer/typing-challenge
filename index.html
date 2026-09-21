@@ -1,13 +1,23 @@
-<!doctype html>
+﻿<!doctype html>
 <html lang="zh-CN">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="theme-color" content="#F7F8F8">
   <title>字速挑战 | 个人打字挑战</title>
+  <meta name="description" content="字速挑战：中文与英文长文本打字挑战，实时显示速度、准确率与进度，一局结束按完成度和准确率给出综合分并生成成绩单。">
+  <meta name="author" content="高俊杰">
+  <meta name="copyright" content="Copyright © 2026 广西师范大学 · 技术顾问：高俊杰 · 保留所有权利">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="字速挑战 | 个人打字挑战">
+  <meta property="og:description" content="中文与英文长文本打字挑战，实时速度、准确率与综合评分。">
+  <meta property="og:url" content="https://yan-stone-computer.github.io/typing-challenge/">
+  <meta property="og:image" content="https://yan-stone-computer.github.io/typing-challenge/site-icon-512.png">
+  <meta name="twitter:card" content="summary">
   <link rel="icon" href="favicon.ico" sizes="any">
   <link rel="icon" type="image/png" sizes="32x32" href="site-icon-32.png">
   <link rel="apple-touch-icon" sizes="180x180" href="site-icon-180.png">
+  <link rel="preload" as="image" href="recruitment-cover.jpg" fetchpriority="high">
   <style>
     :root {
       --surface: #F7F8F8;
@@ -17,7 +27,7 @@
       --border-strong: #B6BBBA;
       --ink: #1D2B28;
       --secondary: #3F6961;
-      --muted: #707977;
+      --muted: #646D6B;
       --panel: #111817;
       --panel-line: #515C5A;
       --panel-text: #D8DEDD;
@@ -115,10 +125,11 @@
     textarea:disabled { background: var(--overlay); color: var(--muted); }
     .input-feedback { min-height: 24px; margin: 8px 0 0; color: var(--secondary); font-size: 13px; }
     .input-feedback.error { color: var(--danger); }
-    .score-main { min-height: calc(100dvh - 72px); padding-top: 56px; padding-bottom: 48px; }
-    .score-heading { margin-bottom: 40px; }
+    #score-view { min-height: 100dvh; display: flex; flex-direction: column; }
+    .score-main { flex: 1; padding-top: 48px; padding-bottom: 40px; }
+    .score-heading { margin-bottom: 32px; }
     .score-heading p { margin: 8px 0 0; color: var(--secondary); }
-    .score-identity { margin-bottom: 48px; }
+    .score-identity { margin-bottom: 32px; }
     .score-numbers { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 24px; padding: 32px; border-radius: 8px; background: var(--panel); color: var(--panel-text); }
     .score-numbers > div > span { display: block; font-size: 13px; }
     .score-numbers strong { display: block; margin-top: 4px; color: var(--surface); font: 750 48px/1.2 "Bahnschrift", "Arial Narrow", system-ui, sans-serif; font-variant-numeric: tabular-nums; }
@@ -137,6 +148,9 @@
     .history li span:last-child { text-align: right; color: var(--secondary); }
     .history-empty { color: var(--secondary); font-size: 14px; }
     footer { border-top: 1px solid var(--border); padding: 24px 0 40px; color: var(--muted); font-size: 12px; }
+    .footer-inner { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px 24px; }
+    .footer-inner .copyright { color: var(--muted); }
+    .footer-inner .copyright strong { color: var(--secondary); font-weight: 800; }
     @media (max-width: 760px) {
       .wrap { width: min(100% - 32px, 1200px); }
       .unlock-top { min-height: 60px; }
@@ -149,7 +163,6 @@
       h1 { font-size: 36px; }
       .intro { margin-bottom: 24px; }
       .identity-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-      .score-main { min-height: calc(100dvh - 60px); }
       .score-numbers { gap: 16px; padding: 24px; }
       .score-numbers strong { font-size: 34px; }
       .round-mark { display: none; }
@@ -184,9 +197,9 @@
 </head>
 <body>
   <section class="unlock-screen" id="unlock-screen" aria-labelledby="unlock-title">
-    <div class="unlock-top"><div class="wrap brand"><svg viewBox="0 0 32 32" aria-hidden="true"><path d="M2 6h28v20H2zM8 12h4m4 0h4m4 0h2M8 18h4m4 0h4m4 0h2M10 23h12" stroke="currentColor" stroke-width="2" fill="none"/></svg><span>字速挑战</span></div></div>
+    <div class="unlock-top"><div class="wrap brand"><svg viewBox="0 0 24 24" aria-hidden="true"><rect width="24" height="24" rx="6" fill="var(--panel)"/><path d="M13.6 3.4 6.6 13.6h4.2l-1 7.2 7-10.4h-4.2z" fill="var(--accent)"/></svg><span>字速挑战</span></div></div>
     <div class="wrap unlock-main">
-      <div class="unlock-intro"><h1 id="unlock-title" tabindex="-1">挑战已锁定</h1><div class="unlock-visual"><img src="recruitment-cover.jpg" alt="广西师范大学计算机协会2026招新海报" width="1080" height="1520"></div></div>
+      <div class="unlock-intro"><h1 id="unlock-title" tabindex="-1">挑战已锁定</h1><div class="unlock-visual"><img src="recruitment-cover.jpg" alt="广西师范大学计算机协会2026招新海报" width="1080" height="1520" decoding="async" fetchpriority="high"></div></div>
       <form class="unlock-form" id="unlock-form">
         <h2 id="unlock-form-title">解锁挑战</h2>
         <div class="identity-fields" id="identity-fields">
@@ -199,12 +212,13 @@
         <p class="unlock-error" id="unlock-error" role="alert"></p><button class="primary" id="unlock-submit" type="submit">进入挑战</button>
       </form>
     </div>
+    <footer><div class="wrap footer-inner"><span class="copyright">Copyright © 2026 广西师范大学 · 技术顾问：<strong>高俊杰</strong> · 保留所有权利</span><span>字速挑战 · 个人打字挑战</span></div></footer>
   </section>
   <div id="app" hidden inert>
   <div id="challenge-view">
   <header>
     <div class="wrap header-inner">
-      <div class="brand"><svg viewBox="0 0 32 32" aria-hidden="true"><path d="M2 6h28v20H2zM8 12h4m4 0h4m4 0h2M8 18h4m4 0h4m4 0h2M10 23h12" stroke="currentColor" stroke-width="2" fill="none"/></svg><span>字速挑战</span></div>
+      <div class="brand"><svg viewBox="0 0 24 24" aria-hidden="true"><rect width="24" height="24" rx="6" fill="var(--panel)"/><path d="M13.6 3.4 6.6 13.6h4.2l-1 7.2 7-10.4h-4.2z" fill="var(--accent)"/></svg><span>字速挑战</span></div>
       <div class="best">个人最佳<strong id="best">暂无记录</strong></div>
     </div>
   </header>
@@ -227,10 +241,10 @@
     </section>
     <section class="history" aria-labelledby="history-title"><h2 id="history-title">最近成绩</h2><ol id="history-list"></ol><p class="history-empty" id="history-empty">还没有完成的挑战。</p></section>
   </main>
-  <footer><div class="wrap">字速挑战 · 本地个人记录</div></footer>
+  <footer><div class="wrap footer-inner"><span class="copyright">Copyright © 2026 广西师范大学 · 技术顾问：<strong>高俊杰</strong> · 保留所有权利</span><span>字速挑战 · 本地个人记录</span></div></footer>
   </div>
   <section id="score-view" aria-labelledby="result-title" hidden>
-    <header><div class="wrap header-inner"><div class="brand"><svg viewBox="0 0 32 32" aria-hidden="true"><path d="M2 6h28v20H2zM8 12h4m4 0h4m4 0h2M8 18h4m4 0h4m4 0h2M10 23h12" stroke="currentColor" stroke-width="2" fill="none"/></svg><span>字速挑战</span></div><span class="round-mark">个人成绩单</span></div></header>
+    <header><div class="wrap header-inner"><div class="brand"><svg viewBox="0 0 24 24" aria-hidden="true"><rect width="24" height="24" rx="6" fill="var(--panel)"/><path d="M13.6 3.4 6.6 13.6h4.2l-1 7.2 7-10.4h-4.2z" fill="var(--accent)"/></svg><span>字速挑战</span></div><span class="round-mark">个人成绩单</span></div></header>
     <main class="wrap score-main">
       <div class="score-heading"><h1 id="result-title"></h1><p id="result-detail"></p></div>
       <dl class="identity-grid score-identity" aria-label="参赛信息">
@@ -242,6 +256,7 @@
       <div class="score-actions"><button class="primary" id="capture" type="button">截取全屏</button><button class="quiet" id="save" type="button" disabled>保存到桌面</button></div>
       <p class="capture-status" id="capture-status" role="status">截图时请选择“整个屏幕”，保存时确认桌面位置。</p>
     </main>
+    <footer><div class="wrap footer-inner"><span class="copyright">Copyright © 2026 广西师范大学 · 技术顾问：<strong>高俊杰</strong> · 保留所有权利</span><span>字速挑战 · 个人成绩单</span></div></footer>
   </section>
   </div>
   <script>
